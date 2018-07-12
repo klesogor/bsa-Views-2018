@@ -1,0 +1,12 @@
+nav{
+    margin-bottom:1rem;
+}
+.currency-header{
+    margin: 0 auto 1rem auto;
+    font-weight: 500;
+}
+
+.currency-representation-header{
+    display: inline;
+    font-weight: 500;
+}
