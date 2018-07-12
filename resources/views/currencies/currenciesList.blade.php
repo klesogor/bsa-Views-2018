@@ -33,3 +33,7 @@
         </table>
     @endif
 @endsection
+
+@section('scripts')
+    @parent
+@endsection

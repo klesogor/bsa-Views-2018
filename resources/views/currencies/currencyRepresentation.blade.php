@@ -6,21 +6,20 @@
 
 @section('content')
     {{-- Title and edit buttons --}}
-    <div class="row">
+    <div class="row mb-2">
         <div class="col-sm-12 col-md-6 text-sm-center text-md-left">
             <h2 class="currency-representation-header"> {{$currency->title}} </h2>
             <span class="text-secondary"> ({{$currency->short_name}})</span>
         </div>
         <div class = "col-sm-12 col-md-6 text-md-right text-sm-center">
-            <button role = "button" class="btn btn-primary" title="edit">
+            <a role = "button" class="btn btn-primary" title="edit" href="{{route('currencies.edit',$currency->id)}}">
                 <i class="fas fa-edit"></i>
-            </button>
-            <button id="delete" role = "button" class="btn btn-danger" title="delete" data-toggle="modal" data-target = "#delete-modal">
+            </a>
+            <a id="delete" role = "button" class="btn btn-danger" title="delete" data-toggle="modal" data-target = "#delete-modal">
                 <i class="fas fa-trash"></i>
-            </button>
+            </a>
         </div>
     </div>
-    <hr>
     <table class="table table-striped">
         <thead>
         <tr>

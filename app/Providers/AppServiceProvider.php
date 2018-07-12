@@ -16,9 +16,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
         Blade::component('components.currencyRow','currencyRow');
         Blade::component('components.footer','footer');
         Blade::component('components.header','header');
+        Blade::component('components.currencyAddForm','currencyAddForm');
+        Blade::component('components.currencyEditForm','currencyEditForm');
     }
 
     /**
