@@ -13,10 +13,10 @@
         </div>
         <div class = "col-sm-12 col-md-6 text-md-right text-sm-center">
             <a role = "button" class="btn btn-primary" title="edit" href="{{route('currencies.edit',$currency->id)}}">
-                <i class="fas fa-edit"></i>
+                <i class="fas fa-edit"></i> Edit
             </a>
             <a id="delete" role = "button" class="btn btn-danger" title="delete" data-toggle="modal" data-target = "#delete-modal">
-                <i class="fas fa-trash"></i>
+                <i class="fas fa-trash"></i> Delete
             </a>
         </div>
     </div>
