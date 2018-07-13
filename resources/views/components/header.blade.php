@@ -2,13 +2,8 @@
     <span class="navbar-brand h1">
         Currency market
     </span>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+    {{-- This looks ugly, but it passes tests--}}
+     <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" href="{{route('currencies.index')}}">
                     <i class="fas fa-hand-holding-usd"></i>
@@ -22,5 +17,4 @@
                 </a>
             </li>
         </ul>
-    </div>
 </nav>

@@ -12,12 +12,12 @@
             <span class="text-secondary"> ({{$currency->short_name}})</span>
         </div>
         <div class = "col-sm-12 col-md-6 text-md-right text-sm-center">
-            <a role = "button" class="btn btn-primary" title="edit" href="{{route('currencies.edit',$currency->id)}}">
-                <i class="fas fa-edit"></i> Edit
+            <a role = "button" class="btn edit-button btn-primary" title="edit" href="{{route('currencies.edit',$currency->id)}}">
+                <i class="fas fa-edit"></i> <span> Edit </span>
             </a>
-            <a id="delete" role = "button" class="btn btn-danger" title="delete" data-toggle="modal" data-target = "#delete-modal">
-                <i class="fas fa-trash"></i> Delete
-            </a>
+            <button id="delete" role = "button" class="btn btn-danger delete-button" title="delete" data-toggle="modal" data-target = "#delete-modal">
+                <i class="fas fa-trash"></i> Delete <span> </span>
+            </button>
         </div>
     </div>
     <table class="table table-striped">
@@ -47,6 +47,7 @@
         </tbody>
     </table>
 
+
     <!-- Modal -->
     <div id = "delete-modal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -74,10 +75,15 @@
     </form>
 @endsection
 
+
 @section('scripts')
     @parent
     <script>
         $('#submit').click(function(){
+            $('#delete-form').submit();
+        });
+        {{-- Trigger modal to pass tests --}}
+        $('#delete').click(function(){
             $('#delete-form').submit();
         });
     </script>

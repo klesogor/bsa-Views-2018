@@ -25,7 +25,6 @@
         </div>
 
         @footer()
-            2018
         @endfooter
 
         <!--bootstrap-->

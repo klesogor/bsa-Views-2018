@@ -22,6 +22,8 @@
                     <th scope="col"></th>
                     <th scope="col">Symbol</th>
                     <th scope="col">Price</th>
+                    <th scope = "col"></th>
+                    <th scope = "col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +35,7 @@
         </table>
     @endif
 @endsection
+
 
 @section('scripts')
     @parent
