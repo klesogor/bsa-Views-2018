@@ -33,10 +33,27 @@
                 @endforeach
             </tbody>
         </table>
+        <form id="delete-form"  method="POST">
+            {{csrf_field()}}
+            {{method_field('DELETE')}}
+        </form>
     @endif
 @endsection
+
+@include('components.modal')
 
 
 @section('scripts')
     @parent
+
+    <script>
+        $('#submit').click(function(){
+            $('#delete-form').submit();
+        });
+
+        $('.delete-button').click(function(){
+            let route = $(this).attr('route');
+            $('#delete-form').attr('action',route);
+        });
+    </script>
 @endsection

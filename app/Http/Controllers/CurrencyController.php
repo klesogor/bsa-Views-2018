@@ -12,6 +12,7 @@ class CurrencyController extends Controller
     function __construct()
     {
         $this->middleware('auth');
+        $this->authorizeResource(Currency::class);
     }
 
     public function index()

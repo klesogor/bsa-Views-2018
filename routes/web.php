@@ -21,3 +21,6 @@ Route::resource('currencies','CurrencyController')->except(['create']);
 
 Auth::routes();
 
+Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
+

@@ -12,12 +12,16 @@
             <span class="text-secondary"> ({{$currency->short_name}})</span>
         </div>
         <div class = "col-sm-12 col-md-6 text-md-right text-sm-center">
-            <a role = "button" class="btn edit-button btn-primary" title="edit" href="{{route('currencies.edit',$currency->id)}}">
-                <i class="fas fa-edit"></i> <span> Edit </span>
-            </a>
+            @can('update',$currency)
+                <a role = "button" class="btn edit-button btn-primary" title="edit" href="{{route('currencies.edit',$currency->id)}}">
+                    <i class="fas fa-edit"></i> <span> Edit </span>
+                </a>
+            @endcan
+            @can('delete',$currency)
             <button id="delete" role = "button" class="btn btn-danger delete-button" title="delete" data-toggle="modal" data-target = "#delete-modal">
                 <i class="fas fa-trash"></i> Delete <span> </span>
             </button>
+             @endcan
         </div>
     </div>
     <table class="table table-striped">
@@ -47,34 +51,13 @@
         </tbody>
     </table>
 
-
-    <!-- Modal -->
-    <div id = "delete-modal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Are you sure?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>This currency will be deleted permanently.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button id="submit" type="button" class="btn btn-danger">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <form id="delete-form" action="{{route('currencies.destroy',$currency->id)}}" method="POST">
         {{csrf_field()}}
         {{method_field('DELETE')}}
     </form>
 @endsection
 
+@include('components.modal')
 
 @section('scripts')
     @parent
