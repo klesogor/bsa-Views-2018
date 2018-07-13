@@ -6,7 +6,6 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -15,12 +14,14 @@
                     Currencies
                 </a>
             </li>
+            @can('create',\App\Currency::class)
             <li class="nav-item">
-                <a class="nav-link" href="{{route('currencies.create')}}">
                     <i class="fas fa-user-plus"></i>
-                    Add
+                <a class="nav-link" href="{{route('currencies.create')}}">
+                        Add
                 </a>
             </li>
+            @endcan
         </ul>
 
         <!-- Right Side Of Navbar -->
@@ -53,6 +54,4 @@
                 </li>
                 @endguest
         </ul>
-    </div>
-    </div>
 </nav>
