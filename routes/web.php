@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/currencies/add','CurrencyController@create')->name('currencies.create');
+
+Route::resource('currencies','CurrencyController')->except(['create']);
+
+Auth::routes();
+
