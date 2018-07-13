@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\User;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -43,9 +45,9 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider()
+    public function redirectToProvider($provider)
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
     /**
@@ -53,9 +55,19 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback($provider)
     {
         $user = Socialite::driver('github')->user();
-        dd($user);
+        $authUser = User::where('provider_id',$user->id)->first() ?? (new User);
+        $authUser->provider_id = $user->id;
+        $authUser->name = $user->nickname;
+        $authUser->email = $user->email;
+        $authUser->provider = $provider;
+
+        $authUser->save();
+
+        Auth::login($authUser);
+
+        return redirect($this->redirectTo);
     }
 }
