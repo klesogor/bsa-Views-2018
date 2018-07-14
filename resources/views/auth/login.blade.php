@@ -66,7 +66,7 @@
                     <hr>
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4 h2">
-                            <a href="{{ url('/login/github') }}" class="btn btn-github"><i class="fab fa-github"></i> Github</a>
+                            <a href="{{ url('/login/github') }}" class="btn btn-github social"><i class="fab fa-github"></i> Github</a>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@
 
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
+        @auth
             <li class="nav-item">
                 <a class="nav-link" href="{{route('currencies.index')}}">
                     <i class="fas fa-hand-holding-usd"></i>
@@ -22,6 +23,7 @@
                 </a>
             </li>
             @endcan
+        @endauth
         </ul>
 
         <!-- Right Side Of Navbar -->

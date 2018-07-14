@@ -58,7 +58,8 @@ class LoginController extends Controller
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver('github')->user();
-        $authUser = User::where('provider_id',$user->id)->first() ?? (new User);
+        $authUser = User::firstOrNew(['provider_id'=>$user->id]);
+        
         $authUser->provider_id = $user->id;
         $authUser->name = $user->nickname;
         $authUser->email = $user->email;
