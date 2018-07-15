@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use App\Currency;
+use App\Exceptions\CurrencyNotFoundException;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -23,7 +25,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::bind('currency',function(int $id){
+            if($currency = Currency::find($id)){
+                return $currency;
+            }
+            throw new CurrencyNotFoundException();
+        });
 
         parent::boot();
     }

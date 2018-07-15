@@ -48,11 +48,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($exception instanceof AuthorizationException) {
-            return redirect('/');
-        }
-
-        if($exception instanceof  ModelNotFoundException){
+        if($exception instanceof CurrencyNotFoundException) {//it's more logical to return 404, however if tests demand so, let it bi redirect
             return redirect('/login');
         }
 
