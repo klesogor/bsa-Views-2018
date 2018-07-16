@@ -21,6 +21,6 @@ Route::resource('currencies','CurrencyController')->except(['create']);
 
 Auth::routes();
 
-Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
-Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('login/{provider}', 'Auth\SocialController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\SocialController@handleProviderCallback');
 

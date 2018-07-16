@@ -17,7 +17,7 @@ class CurrencyPolicy
      * @param  \App\Currency  $currency
      * @return mixed
      */
-    public function view(User $user, Currency $currency)
+    public function view(User $user, ?Currency $currency)
     {
         return true;
     }
@@ -40,9 +40,9 @@ class CurrencyPolicy
      * @param  \App\Currency  $currency
      * @return mixed
      */
-    public function update(User $user, Currency $currency)
+    public function update(User $user, ?Currency $currency = null)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() && $currency;
     }
 
     /**
@@ -52,8 +52,8 @@ class CurrencyPolicy
      * @param  \App\Currency  $currency
      * @return mixed
      */
-    public function delete(User $user, Currency $currency)
+    public function delete(User $user, ?Currency $currency = null)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() && $currency;
     }
 }

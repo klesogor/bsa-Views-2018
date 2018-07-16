@@ -25,13 +25,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Route::bind('currency',function(int $id){
-            if($currency = Currency::find($id)){
-                return $currency;
-            }
-            throw new CurrencyNotFoundException();
-        });
-
         parent::boot();
     }
 

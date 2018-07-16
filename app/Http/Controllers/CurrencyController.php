@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Currency;
 use App\Http\Requests\CurrencyRequest;
+use App\Services\CurrencyRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class CurrencyController extends Controller
 {
+    private $currencyRepository;
 
    function __construct()
     {
         $this->middleware('auth');//check if user authed
+        $this->currencyRepository =  app(CurrencyRepositoryInterface::class);
     }
 
     public function index()//index is allowed to all authed users
@@ -23,7 +26,7 @@ class CurrencyController extends Controller
 
     public function create()
     {
-        if(Gate::denies('currency.create',Currency::class)){
+        if(Gate::denies('currency.create')){
             return $this->redirectNotAuthed();
         }
 
@@ -33,16 +36,21 @@ class CurrencyController extends Controller
 
     public function store(CurrencyRequest $request)
     {
-        if(Gate::denies('currency.create',Currency::class)){
+        if(Gate::denies('currency.create')){
             return $this->redirectNotAuthed();
         }
 
-        Currency::create($request->validated());
+        $currency = new Currency();
+        $currency->fill($request->validated());
+        $this->currencyRepository->store($currency);
+
         return redirect(route('currencies.index'));
     }
 
-    public function show(Currency $currency)//maybe some logic will appear here some day
+    public function show(int $currencyId)//maybe some logic will appear here some day
     {
+        $currency = $this->currencyRepository->findById($currencyId);
+
         if(Gate::denies('currency.view',$currency)){
             return $this->redirectNotAuthed();
         }
@@ -50,8 +58,10 @@ class CurrencyController extends Controller
         return view('currencies.currencyRepresentation')->with('currency',$currency);
     }
 
-    public function edit(Currency $currency)
+    public function edit(int $currencyId)
     {
+       $currency = $this->currencyRepository->findById($currencyId); //first authorize, then if model doesn't exists - abort
+
         if(Gate::denies('currency.update',$currency)){
             return $this->redirectNotAuthed();
         }
@@ -60,23 +70,28 @@ class CurrencyController extends Controller
     }
 
 
-    public function update(CurrencyRequest $request, Currency $currency)
+    public function update(CurrencyRequest $request, int $currencyId)
     {
+        $currency = $this->currencyRepository->findById($currencyId);
         if(Gate::denies('currency.update',$currency)){
             return $this->redirectNotAuthed();
         }
 
-        $currency->update($request->validated());
+        $currency->fill($request->validated());
+        $this->currencyRepository->store($currency);
         return redirect(route('currencies.show',$currency->id));
     }
 
-    public function destroy(Currency $currency)
+    public function destroy(int $currencyId)
     {
+        $currency = $this->currencyRepository->findById($currencyId);
+
         if(Gate::denies('currency.delete',$currency)){
             return $this->redirectNotAuthed();
         }
 
-        $currency->delete();
+
+        $this->currencyRepository->delete($currency);
         return redirect(route('currencies.index'));
     }
 
@@ -84,4 +99,5 @@ class CurrencyController extends Controller
     {
         return redirect('/');//User is authed already, so we just redirect him to default page
     }
+
 }
