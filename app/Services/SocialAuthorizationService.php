@@ -13,13 +13,14 @@ class SocialAuthorizationService
         return User::where(['provider_id' => $providerId,'provider' => $providerName])->first();
     }
 
-    public function authorizeGithubUser($providerUserEntity):void
+    public function authorize($driver,$provider):void
     {
-        $user = $this->getSocialUserData($providerUserEntity->id,'github');
+        $providerUserEntity = $driver->user;
+        $user = $this->getSocialUserData($providerUserEntity->id,$provider);
         if(!$user) { //user doesn't exists
             $user = new User;
             $user->provider_id = $providerUserEntity->id;
-            $user->provider = 'github';
+            $user->provider = $provider;
         }
         $user->name = $providerUserEntity->nickname;
         $user->email = $providerUserEntity->email;

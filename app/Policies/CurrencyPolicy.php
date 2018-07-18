@@ -42,7 +42,7 @@ class CurrencyPolicy
      */
     public function update(User $user, ?Currency $currency = null)
     {
-        return $user->isAdmin() && $currency;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,6 +54,6 @@ class CurrencyPolicy
      */
     public function delete(User $user, ?Currency $currency = null)
     {
-        return $user->isAdmin() && $currency;
+        return $user->isAdmin();
     }
 }

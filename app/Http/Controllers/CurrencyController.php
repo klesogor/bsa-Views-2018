@@ -12,10 +12,10 @@ class CurrencyController extends Controller
 {
     private $currencyRepository;
 
-   function __construct()
+   function __construct(CurrencyRepositoryInterface $repository)
     {
         $this->middleware('auth');//check if user authed
-        $this->currencyRepository =  app(CurrencyRepositoryInterface::class);
+        $this->currencyRepository = $repository;
     }
 
     public function index()//index is allowed to all authed users
@@ -54,6 +54,9 @@ class CurrencyController extends Controller
         if(Gate::denies('currency.view',$currency)){
             return $this->redirectNotAuthed();
         }
+        if(is_null($currency)){
+            abort(404);
+        }
 
         return view('currencies.currencyRepresentation')->with('currency',$currency);
     }
@@ -65,6 +68,9 @@ class CurrencyController extends Controller
         if(Gate::denies('currency.update',$currency)){
             return $this->redirectNotAuthed();
         }
+        if(is_null($currency)) {
+            abort(404);
+        }
 
         return view('currencies.currencyEdit')->with('currency',$currency);
     }
@@ -75,6 +81,9 @@ class CurrencyController extends Controller
         $currency = $this->currencyRepository->findById($currencyId);
         if(Gate::denies('currency.update',$currency)){
             return $this->redirectNotAuthed();
+        }
+        if(is_null($currency)) {
+            abort(404);
         }
 
         $currency->fill($request->validated());
@@ -88,6 +97,9 @@ class CurrencyController extends Controller
 
         if(Gate::denies('currency.delete',$currency)){
             return $this->redirectNotAuthed();
+        }
+        if(is_null($currency)) {
+            abort(404);
         }
 
 

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\CurrencyRepository;
 use App\Services\CurrencyRepositoryInterface;
+use App\Services\ProviderFactory;
+use App\Services\ProvidersFactoryInterface;
 use App\Services\UserRepository;
 use App\Services\UserRepositoryInterface;
 use Illuminate\Support\Facades\Blade;
@@ -30,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CurrencyRepositoryInterface::class, CurrencyRepository::class);
         //never used though
         $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
+
+        $this->app->bind(ProvidersFactoryInterface::class,ProviderFactory::class);
     }
 
     /**

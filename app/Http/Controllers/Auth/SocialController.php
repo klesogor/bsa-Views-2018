@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\ProviderFactory;
 use App\Services\SocialAuthorizationService;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -25,16 +26,9 @@ class SocialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback(SocialAuthorizationService $service,$provider)
+    public function handleProviderCallback(SocialAuthorizationService $service,ProviderFactory $factory,string $provider)
     {
-        switch ($provider) {
-            case 'github':
-                $user = Socialite::driver('github')->user();
-                $service->authorizeGithubUser($user);
-                return redirect($this->redirectTo);
-            default:
-                abort(404);
-        }
-
+        $service->authorize($factory->getDriver($provider),$provider);
+        return redirect($this->redirectTo);
     }
 }
